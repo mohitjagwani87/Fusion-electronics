@@ -236,14 +236,16 @@ function OrderTracking() {
     return fallbackFlow;
   }, [hasTracking, trackingData]);
 
-  const history = hasTracking ? trackingData?.statusHistory || [] : [];
   const historyMap = React.useMemo(() => {
+    const history = hasTracking ? trackingData?.statusHistory || [] : [];
     const entries = new Map();
     history.forEach(status => {
       entries.set(status.code, status);
     });
     return entries;
-  }, [history]);
+  }, [hasTracking, trackingData]);
+
+  const history = hasTracking ? trackingData?.statusHistory || [] : [];
   const currentStatus = hasTracking ? trackingData?.currentStatus : null;
 
   const historyCodes = history.map(status => status.code);
